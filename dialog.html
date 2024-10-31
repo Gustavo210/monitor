@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Database Update</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: white;
+            display: flex;
+            flex-direction: column;
+        }
+        .container {
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+        }
+        h2 {
+            margin: 0 0 15px 0;
+            color: #333;
+        }
+        p {
+            margin: 0 0 20px 0;
+            color: #666;
+        }
+        .buttons {
+            display: flex;
+            justify-content: flex-end;
+            gap: 10px;
+            margin-top: auto;
+        }
+        button {
+            padding: 8px 16px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 14px;
+            transition: background-color 0.2s;
+        }
+        .sync-btn {
+            background-color: #007bff;
+            color: white;
+        }
+        .sync-btn:hover {
+            background-color: #0056b3;
+        }
+        .cancel-btn {
+            background-color: #6c757d;
+            color: white;
+        }
+        .cancel-btn:hover {
+            background-color: #545b62;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Database Update Available</h2>
+        <p>The SQL file has been modified. Do you want to sync the database?</p>
+        <div class="buttons">
+            <button class="cancel-btn" onclick="respond(false)">Cancel</button>
+            <button class="sync-btn" onclick="respond(true)">Sync</button>
+        </div>
+    </div>
+    <script>
+        const { ipcRenderer } = require('electron');
+        
+        function respond(response) {
+            ipcRenderer.send('sync-response', response);
+        }
+    </script>
+</body>
+</html>
